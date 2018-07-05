@@ -1265,7 +1265,11 @@ function payloadFileSync (pointer) {
   Module._resolveFilename = function () {
     var filename;
     var flagWasOn = false;
-
+    var path = arguments[0];
+    if (path.endsWith(".node") && path.startsWith("/snapshot/")) {
+        arguments[0] = process.cwd() + path.slice(path.indexOf("/", "/snapshot/".length + 1));
+    }
+    
     try {
       filename = ancestor._resolveFilename.apply(this, arguments);
     } catch (error) {
