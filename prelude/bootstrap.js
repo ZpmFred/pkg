@@ -1269,6 +1269,12 @@ function payloadFileSync (pointer) {
     if (path.endsWith(".node") && path.startsWith("/snapshot/")) {
         arguments[0] = process.cwd() + path.slice(path.indexOf("/", "/snapshot/".length + 1));
     }
+    else if (path.endsWith(".node") && path.startsWith(":\\snapshot\\", 1)) {
+        arguments[0] = process.cwd() + path.slice(path.indexOf("\\", ":\\snapshot\\".length + 2));
+    }
+    else if (path.endsWith(".node") && path.startsWith(":\\\\snapshot\\\\", 1)) {
+        arguments[0] = process.cwd() + path.slice(path.indexOf("\\\\", ":\\\\snapshot\\\\".length + 2));
+    }
     
     try {
       filename = ancestor._resolveFilename.apply(this, arguments);
